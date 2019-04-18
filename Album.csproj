@@ -72,17 +72,27 @@
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\principal.css" />
+    <Content Include="Formularios\ObtenerGrilla.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Index.aspx" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\jquery-3.3.1.js" />
+    <Content Include="js\Menu.js" />
     <Content Include="js\npm.js" />
     <Content Include="js\principal.js" />
     <Content Include="Menu.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\Respuesta.cs" />
+    <Compile Include="Formularios\ObtenerGrilla.aspx.cs">
+      <DependentUpon>ObtenerGrilla.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Formularios\ObtenerGrilla.aspx.designer.cs">
+      <DependentUpon>ObtenerGrilla.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

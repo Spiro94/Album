@@ -16,6 +16,8 @@ namespace Album
             {
                 FormsAuthentication.RedirectToLoginPage();
             }
+
+            
         }
     }
 }
