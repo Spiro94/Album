@@ -1,0 +1,39 @@
+﻿body {
+    height: 100vh;
+}
+
+body, html, h1 {
+    margin: 0;
+}
+
+.contenedorPrincipal {
+    height: 100vh;
+    position: relative;
+}
+
+.barraLateral {
+    width: 20%;
+    height: 90%;
+    background-color: bisque;
+    float: left;
+}
+
+.contenidoCentral {
+    width: 80%;
+    height: 90%;
+    overflow-y: auto;
+    background-color: cornflowerblue;
+}
+
+.barraSuperior {
+    width: 100%;
+    height: 10%;
+    background-color: blue;
+}
+
+.barraInferior {
+    clear: both;
+    height: 10%;
+    width: 100%;
+    background-color: aqua;
+}
