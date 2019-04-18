@@ -29,7 +29,7 @@
             <div>
                 Grilla con album
             </div>
-            <div>
+            <div id="grilla" runat="server">
                 Grilla
             </div>
         </div>
