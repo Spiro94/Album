@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -16,6 +19,8 @@ namespace Album.Formularios
         {
             Respuesta respuesta = new Respuesta();
             StringBuilder sb = new StringBuilder();
+            string stickers = "";
+            string seleccionado = "";
 
             try
             {
@@ -32,6 +37,28 @@ namespace Album.Formularios
                     else
                     {
                         string usuario = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
+
+
+                        using (SqlConnection conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["ConexionAlbum"].ConnectionString))
+                        {
+                            conexion.Open();
+
+                            SqlCommand cmd = new SqlCommand
+                            {
+                                Connection = conexion
+                            };
+
+                            cmd.Parameters.Add("@in_id_usuario", SqlDbType.Int).Value = 1;
+
+                            cmd.Parameters.Add("@out_stickers", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
+
+                            cmd.CommandText = "dbo.SP_OBTENER_STICKERS";
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.ExecuteNonQuery();
+
+                            stickers = cmd.Parameters["@out_stickers"].Value.ToString();
+                        }
+
 
                         sb.Append("<table class='grillaPrincipal'>");
                         sb.Append("<caption>Album</caption>");
@@ -56,7 +83,13 @@ namespace Album.Formularios
 
                             string id = "td_" + i;
 
-                            sb.Append("<td id='" + id + "' onclick=\"SeleccionarSticker('" + id + "')\">");
+                            if (!string.IsNullOrEmpty(stickers))
+                            {
+                                string[] lista = stickers.Split(',');
+                                seleccionado = lista.Contains(id) ? "class='seleccionado'" : string.Empty;
+                            }
+
+                            sb.Append("<td " + seleccionado + " id='" + id + "' onclick=\"SeleccionarSticker('" + id + "')\">");
                             sb.Append(i.ToString().PadLeft(2, '0'));
                             sb.Append("</td>");
 

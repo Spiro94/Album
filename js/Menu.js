@@ -71,7 +71,7 @@ function GuardarCambios() {
         },
         method: 'POST',
         success: function (respuesta) {
-            console.log(respuesta.Codigo)
+            alert(respuesta.Mensaje);
         },
         error: function (e) {
             console.log(e);
