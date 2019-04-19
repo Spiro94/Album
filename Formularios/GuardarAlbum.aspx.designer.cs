@@ -10,6 +10,6 @@
 namespace Album.Formularios {
     
     
-    public partial class ObtenerGrilla {
+    public partial class GuardarAlbum {
     }
 }

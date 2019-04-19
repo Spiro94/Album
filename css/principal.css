@@ -50,3 +50,11 @@ body, html, h1 {
         height: 50px;
     }
 
+    .grillaPrincipal td:hover {
+        cursor: pointer;
+        background-color: burlywood;
+    }
+
+.seleccionado {
+    background-color: aquamarine;
+}

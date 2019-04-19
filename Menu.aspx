@@ -31,7 +31,7 @@
         </div>
         <div class="contenidoCentral">
             <div>
-                Grilla con album
+                <button id="guardar" onclick="GuardarCambios()">Guardar cambios</button>
             </div>
             <div id="grilla">
                 Grilla

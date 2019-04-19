@@ -74,6 +74,7 @@
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\principal.css" />
+    <Content Include="Formularios\GuardarAlbum.aspx" />
     <Content Include="Formularios\ObtenerGrilla.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Index.aspx" />
@@ -93,6 +94,13 @@
     </Compile>
     <Compile Include="CerrarSesion.aspx.designer.cs">
       <DependentUpon>CerrarSesion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\GuardarAlbum.aspx.cs">
+      <DependentUpon>GuardarAlbum.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Formularios\GuardarAlbum.aspx.designer.cs">
+      <DependentUpon>GuardarAlbum.aspx</DependentUpon>
     </Compile>
     <Compile Include="Formularios\ObtenerGrilla.aspx.cs">
       <DependentUpon>ObtenerGrilla.aspx</DependentUpon>

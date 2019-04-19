@@ -8,7 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Newtonsoft.Json;
 
-namespace Album
+namespace Album.Formularios
 {
     public partial class ObtenerGrilla : System.Web.UI.Page
     {
@@ -54,10 +54,10 @@ namespace Album
                                 inicio = 0;
                             }
 
-                            sb.Append("<td>");
-                            sb.Append("<div>");
+                            string id = "td_" + i;
+
+                            sb.Append("<td id='" + id + "' onclick=\"SeleccionarSticker('" + id + "')\">");
                             sb.Append(i.ToString().PadLeft(2, '0'));
-                            sb.Append("</div>");                            
                             sb.Append("</td>");
 
                             if (i % 10 == 0 && i != 250)
