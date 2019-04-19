@@ -1,12 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using System.Web.Security;
 
 namespace Album.Formularios
 {
@@ -18,6 +13,7 @@ namespace Album.Formularios
 
             try
             {
+                string mensajeError = "";
                 string stickers = Request["stickers"];
 
                 string method = HttpContext.Current.Request.HttpMethod;
@@ -26,12 +22,20 @@ namespace Album.Formularios
 
                 if (method == "POST" && requestedWith == "XMLHttpRequest")
                 {
+                    string idUsuario = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
 
-                    if (!string.IsNullOrEmpty(stickers))
+                    mensajeError = Procedimientos.GuardarAlbum(int.Parse(idUsuario), stickers);
+
+                    if (mensajeError == "ok")
                     {
-                        SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConexionAlbum"].ConnectionString);
+                        respuesta.Codigo = "0";
+                        respuesta.Mensaje = "Cambios guardados exitosamente";
                     }
-
+                    else
+                    {
+                        respuesta.Codigo = "-1";
+                        respuesta.Mensaje = "Error guardando los cambios: " + mensajeError;
+                    }
                 }
             }
             catch (Exception ex)

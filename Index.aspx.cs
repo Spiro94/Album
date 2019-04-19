@@ -12,7 +12,7 @@ namespace Album
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (this.Page.User.Identity.IsAuthenticated)
+            if (Page.User.Identity.IsAuthenticated)
             {
                 Response.Redirect("Menu.aspx", true);
             }
@@ -26,11 +26,21 @@ namespace Album
 
             if (string.IsNullOrEmpty(usuario) && string.IsNullOrEmpty(contraseña))
             {
-                Response.Redirect("Login.aspx", true);
+                msjError.InnerText = "Usuario y contraseña requeridos";
             }
             else
             {
-                FormsAuthentication.RedirectFromLoginPage(usuario, recordar);
+                string mensajeError = Procedimientos.ValidarUsuario(usuario, contraseña, out string idUsuario);
+
+                if (mensajeError == "ok")
+                {
+                    FormsAuthentication.RedirectFromLoginPage(idUsuario, recordar);
+                }
+                else
+                {
+                    msjError.InnerText = mensajeError;
+                }
+                
             }
         }
     }

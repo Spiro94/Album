@@ -26,6 +26,11 @@ function CargarGrilla() {
         dataType: 'json',
         method: 'POST',
         success: function (respuesta) {
+
+            if (respuesta.Mensaje != "") {
+                alert(respuesta.Mensaje);
+            }
+
             $("#grilla").html(respuesta.Datos)
         },
         error: function (e) {
@@ -47,6 +52,8 @@ function SeleccionarSticker(_id) {
     else {
         objeto.addClass("seleccionado")
     }
+
+    GuardarCambios();
 }
 
 function GuardarCambios() {
@@ -71,7 +78,7 @@ function GuardarCambios() {
         },
         method: 'POST',
         success: function (respuesta) {
-            console.log(respuesta.Codigo)
+            alert(respuesta.Mensaje);
         },
         error: function (e) {
             console.log(e);

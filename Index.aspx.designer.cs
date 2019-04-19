@@ -13,13 +13,13 @@ namespace Album {
     public partial class Index {
         
         /// <summary>
-        /// Control formulario.
+        /// Control formularioLogin.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm formulario;
+        protected global::System.Web.UI.HtmlControls.HtmlForm formularioLogin;
         
         /// <summary>
         /// Control enviar.
@@ -29,5 +29,14 @@ namespace Album {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputButton enviar;
+        
+        /// <summary>
+        /// Control msjError.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msjError;
     }
 }

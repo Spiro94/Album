@@ -6,6 +6,16 @@ body, html, h1 {
     margin: 0;
 }
 
+.contenedorLogin {
+    height: 100%;
+    text-align: center;
+}
+
+#formularioLogin {
+    position: relative;
+    top: 35%;
+}
+
 .contenedorPrincipal {
     height: 100vh;
     position: relative;

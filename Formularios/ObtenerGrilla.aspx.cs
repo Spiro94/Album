@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using Newtonsoft.Json;
 
 namespace Album.Formularios
@@ -16,6 +13,8 @@ namespace Album.Formularios
         {
             Respuesta respuesta = new Respuesta();
             StringBuilder sb = new StringBuilder();
+            string stickers = "";
+            string seleccionado = "";
 
             try
             {
@@ -31,10 +30,19 @@ namespace Album.Formularios
                     }
                     else
                     {
-                        string usuario = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
+                        string idUsuario = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
+                        
+                        stickers = Procedimientos.ObtenerStickers(int.Parse(idUsuario), out string mensajeError);
+
+                        respuesta.Codigo = "0";
+                        respuesta.Mensaje = "";
+
+                        if (mensajeError != "ok")
+                        {
+                            respuesta.Mensaje = "Error obteniendo stickers";
+                        }
 
                         sb.Append("<table class='grillaPrincipal'>");
-                        sb.Append("<caption>Album</caption>");
 
                         int bandera = 0;
                         int inicio = 1;
@@ -56,7 +64,13 @@ namespace Album.Formularios
 
                             string id = "td_" + i;
 
-                            sb.Append("<td id='" + id + "' onclick=\"SeleccionarSticker('" + id + "')\">");
+                            if (!string.IsNullOrEmpty(stickers) && mensajeError == "ok")
+                            {
+                                string[] lista = stickers.Split(',');
+                                seleccionado = lista.Contains(id) ? "class='seleccionado'" : string.Empty;
+                            }
+
+                            sb.Append("<td " + seleccionado + " id='" + id + "' onclick=\"SeleccionarSticker('" + id + "')\">");
                             sb.Append(i.ToString().PadLeft(2, '0'));
                             sb.Append("</td>");
 
@@ -74,7 +88,6 @@ namespace Album.Formularios
                         sb.Append("</table>");
 
                         respuesta.Datos = sb.ToString();
-
                     }
                 }
                 else
@@ -84,7 +97,8 @@ namespace Album.Formularios
             }
             catch (Exception ex)
             {
-
+                respuesta.Codigo = "-1";
+                respuesta.Mensaje = "Error inesperado: " + ex.Message;
             }
             finally
             {
