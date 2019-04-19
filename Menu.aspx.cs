@@ -19,5 +19,11 @@ namespace Album
 
             
         }
+
+        protected void cerrarSesion_ServerClick(object sender, EventArgs e)
+        {
+            FormsAuthentication.SignOut();
+            FormsAuthentication.RedirectToLoginPage();
+        }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Album.App_Code
+namespace Album
 {
     public class Respuesta
     {

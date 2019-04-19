@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Página principal</title>
     <script src="js/jquery-3.3.1.js"></script>
     <script src="js/bootstrap.js"></script>
@@ -12,12 +13,15 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css" />
 
     <link rel="stylesheet" type="text/css" href="css/principal.css" />
+    <script src="js/Menu.js"></script>
 </head>
 <body>
     <div class="contenedorPrincipal">
         <div class="barraSuperior">
             <div>Titulo</div>
-            <div>Cerrar sesión</div>
+            <div>
+                <button id="cerrarSesion" onclick="CerrarSesion()" value="Cerrar Sesion" >Cerrar Sesion</button>
+            </div>
         </div>
         <div class="barraLateral">
             <div>
@@ -29,7 +33,7 @@
             <div>
                 Grilla con album
             </div>
-            <div id="grilla" runat="server">
+            <div id="grilla">
                 Grilla
             </div>
         </div>
