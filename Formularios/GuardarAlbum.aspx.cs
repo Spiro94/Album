@@ -1,14 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Configuration;
-using System.Data.SqlClient;
-using System.Linq;
 using System.Web;
 using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Album.Formularios
 {
@@ -29,28 +22,9 @@ namespace Album.Formularios
 
                 if (method == "POST" && requestedWith == "XMLHttpRequest")
                 {
-                    string usuario = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
+                    string idUsuario = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
 
-                    using (SqlConnection conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["ConexionAlbum"].ConnectionString))
-                    {
-                        conexion.Open();
-
-                        SqlCommand cmd = new SqlCommand
-                        {
-                            Connection = conexion
-                        };
-
-                        cmd.Parameters.Add("@in_id_usuario", SqlDbType.Int).Value = 1;
-                        cmd.Parameters.Add("@in_stickers", SqlDbType.VarChar).Value = stickers;
-
-                        cmd.Parameters.Add("@out_mensaje", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
-
-                        cmd.CommandText = "dbo.SP_GUARDAR_STICKERS";
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.ExecuteNonQuery();
-
-                        mensajeError = cmd.Parameters["@out_mensaje"].Value.ToString();
-                    }
+                    mensajeError = Procedimientos.GuardarAlbum(int.Parse(idUsuario), stickers);
 
                     if (mensajeError == "ok")
                     {

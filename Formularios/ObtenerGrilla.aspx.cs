@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using Newtonsoft.Json;
 
 namespace Album.Formularios
@@ -36,32 +30,19 @@ namespace Album.Formularios
                     }
                     else
                     {
-                        string usuario = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
+                        string idUsuario = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
+                        
+                        stickers = Procedimientos.ObtenerStickers(int.Parse(idUsuario), out string mensajeError);
 
+                        respuesta.Codigo = "0";
+                        respuesta.Mensaje = "";
 
-                        using (SqlConnection conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["ConexionAlbum"].ConnectionString))
+                        if (mensajeError != "ok")
                         {
-                            conexion.Open();
-
-                            SqlCommand cmd = new SqlCommand
-                            {
-                                Connection = conexion
-                            };
-
-                            cmd.Parameters.Add("@in_id_usuario", SqlDbType.Int).Value = 1;
-
-                            cmd.Parameters.Add("@out_stickers", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
-
-                            cmd.CommandText = "dbo.SP_OBTENER_STICKERS";
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.ExecuteNonQuery();
-
-                            stickers = cmd.Parameters["@out_stickers"].Value.ToString();
+                            respuesta.Mensaje = "Error obteniendo stickers";
                         }
 
-
                         sb.Append("<table class='grillaPrincipal'>");
-                        sb.Append("<caption>Album</caption>");
 
                         int bandera = 0;
                         int inicio = 1;
@@ -83,7 +64,7 @@ namespace Album.Formularios
 
                             string id = "td_" + i;
 
-                            if (!string.IsNullOrEmpty(stickers))
+                            if (!string.IsNullOrEmpty(stickers) && mensajeError == "ok")
                             {
                                 string[] lista = stickers.Split(',');
                                 seleccionado = lista.Contains(id) ? "class='seleccionado'" : string.Empty;
@@ -107,7 +88,6 @@ namespace Album.Formularios
                         sb.Append("</table>");
 
                         respuesta.Datos = sb.ToString();
-
                     }
                 }
                 else
@@ -117,7 +97,8 @@ namespace Album.Formularios
             }
             catch (Exception ex)
             {
-
+                respuesta.Codigo = "-1";
+                respuesta.Mensaje = "Error inesperado: " + ex.Message;
             }
             finally
             {
