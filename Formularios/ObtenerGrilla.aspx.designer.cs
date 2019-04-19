@@ -7,7 +7,7 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace Album {
+namespace Album.Formularios {
     
     
     public partial class ObtenerGrilla {

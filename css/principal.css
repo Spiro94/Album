@@ -37,3 +37,24 @@ body, html, h1 {
     width: 100%;
     background-color: aqua;
 }
+
+.grillaPrincipal {
+    width: 80%;
+    position: relative;
+    left: 10%;
+}
+
+    .grillaPrincipal td {
+        border: 1px solid;
+        text-align: center;
+        height: 50px;
+    }
+
+    .grillaPrincipal td:hover {
+        cursor: pointer;
+        background-color: burlywood;
+    }
+
+.seleccionado {
+    background-color: aquamarine;
+}
